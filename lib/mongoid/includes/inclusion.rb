@@ -25,7 +25,7 @@ module Mongoid
 
       # Public: Returns true if the relation is a polymorphic belongs_to.
       def polymorphic_belongs_to?
-        metadata.polymorphic? && metadata.relation == Mongoid::Relations::Referenced::In
+        metadata.polymorphic? && metadata.relation == Mongoid::Association::Referenced::BelongsTo
       end
 
       # Public: Name of the relation from which a nested inclusion is performed.

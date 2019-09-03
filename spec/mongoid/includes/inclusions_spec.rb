@@ -20,11 +20,16 @@ describe Mongoid::Includes::Inclusions do
       And  { result.class == Mongoid::Includes::Inclusions }
     end
 
-    context 'prevents duplicates' do
-      Given {
-        inclusions.add(Band.relations['albums'])
-      }
-      Then { inclusions.size == 3 }
+  end
+
+  # Inclusions wrapper raises a syntax error with using Give/Then
+  describe '#inclusions delegator safe' do
+    let(:criteria) { Band.includes :songs, :owner, from: :albums }
+    let(:inclusions) { criteria.inclusions }
+
+    it 'prevents duplicates' do
+      inclusions.add(Band.relations['albums'])
+      expect(inclusions.size).to eq 3
     end
   end
 end
